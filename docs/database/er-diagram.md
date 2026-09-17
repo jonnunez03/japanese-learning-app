@@ -24,6 +24,15 @@ erDiagram
     SENTENCES ||--o{ SENTENCE_GRAMMAR : uses
     GRAMMAR_POINTS ||--o{ SENTENCE_GRAMMAR : appears_in
 
+    USERS ||--o{ USER_KANJI_PROGRESS : tracks
+    USERS ||--o{ USER_WORD_FORM_PROGRESS : tracks
+
+    KANJI ||--o{ USER_KANJI_PROGRESS : tracked_by
+
+    WORDS ||--o{ WORD_KANJI : contains
+    KANJI ||--o{ WORD_KANJI : appears_in
+
+    WORDS ||--o{ USER_WORD_FORM_PROGRESS : practiced_as
 
     USERS {
         int id PK
@@ -118,6 +127,39 @@ erDiagram
         int sentence_id PK FK
         int grammar_id PK FK
     }
-Save it:
 
-```text
+    KANJI {
+        int id PK
+        string character
+        string meaning
+        int stroke_count
+        string jlpt_level
+        int frequency_rank
+    }
+
+    USER_KANJI_PROGRESS {
+        int user_id PK FK
+        int kanji_id PK FK
+        string status
+        int times_seen
+        int times_correct
+        int recognition_score
+    }
+
+    WORD_KANJI {
+        int word_id PK FK
+        int kanji_id PK FK
+        int position
+    }
+
+    USER_WORD_FORM_PROGRESS {
+        int user_id PK FK
+        int word_id PK FK
+        string form_key PK
+        int times_seen
+        int times_correct
+        int times_wrong
+        datetime last_practiced
+        datetime next_review
+    }
+```
