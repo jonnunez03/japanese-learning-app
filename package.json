@@ -1,0 +1,24 @@
+{
+  "name": "japanese-learning-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonnunez03/japanese-learning-app.git"
+  },
+  "keywords": [],
+  "author": "Jonathan Nunez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jonnunez03/japanese-learning-app/issues"
+  },
+  "homepage": "https://github.com/jonnunez03/japanese-learning-app#readme",
+  "description": "",
+  "private": true
+}
