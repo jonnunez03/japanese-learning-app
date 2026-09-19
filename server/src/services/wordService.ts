@@ -1,16 +1,7 @@
-export function getAllWords() {
-  return [
-    {
-      id: 1,
-      kanji: "飲む",
-      kana: "のむ",
-      english: "to drink",
-    },
-    {
-      id: 2,
-      kanji: "食べる",
-      kana: "たべる",
-      english: "to eat",
-    },
-  ];
+import pool from "../database/db.js";
+
+export async function getAllWords() {
+  const result = await pool.query("SELECT * FROM words ORDER BY id");
+
+  return result.rows;
 }
