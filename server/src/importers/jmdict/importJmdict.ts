@@ -3,7 +3,13 @@ import { readJmdictEntries } from "./readEntries.js";
 import { parseJmdictEntry } from "./parseEntry.js";
 
 const filePath = "data/raw/JMdict_e";
-const maxEntries = 5;
+const limitArg = process.argv[2] ?? "5";
+
+const maxEntries = limitArg === "all" ? null : Number(limitArg);
+
+if (maxEntries !== null && (!Number.isInteger(maxEntries) || maxEntries <= 0)) {
+  throw new Error('Import limit must be a positive integer or "all".');
+}
 
 let importedCount = 0;
 
@@ -28,7 +34,7 @@ try {
 
     importedCount += 1;
 
-    if (importedCount === maxEntries) {
+    if (maxEntries !== null && importedCount >= maxEntries) {
       break;
     }
   }
