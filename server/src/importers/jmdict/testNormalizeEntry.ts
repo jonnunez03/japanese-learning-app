@@ -112,3 +112,37 @@ const restrictedEntry: JmdictEntry = {
 
 console.log("\nRestricted senses:");
 console.log(JSON.stringify(normalizeJmdictEntry(restrictedEntry), null, 2));
+
+const kanaOnlyEntry: JmdictEntry = {
+  entrySequence: "8888888",
+
+  kanjiElements: [],
+
+  readingElements: [
+    {
+      text: "ありがとう",
+      noKanji: true,
+      restrictions: [],
+      priorities: ["ichi1"],
+    },
+  ],
+
+  senses: [
+    {
+      partsOfSpeech: ["&exp;"],
+      kanjiRestrictions: [],
+      readingRestrictions: [],
+      fields: [],
+      miscellaneous: [],
+      glosses: [
+        {
+          text: "thank you",
+          language: "eng",
+        },
+      ],
+    },
+  ],
+};
+
+console.log("\nKana-only entry:");
+console.log(JSON.stringify(normalizeJmdictEntry(kanaOnlyEntry), null, 2));
