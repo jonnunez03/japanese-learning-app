@@ -917,15 +917,17 @@ wordfreq should contribute one signal to vocabulary selection.
 
 Conceptually:
 
-JMdict priority
+Conceptually:
 
-- wordfreq score
-- topic usefulness
-- everyday usefulness
-- curriculum prerequisites
-- kanji difficulty
-- # manual review
-  curriculum placement
+```text
+JMdict priority
++ wordfreq score
++ topic usefulness
++ everyday usefulness
++ curriculum prerequisites
++ kanji difficulty
++ manual review
+= curriculum placement
 
 No word should automatically enter or leave the curriculum solely because of its wordfreq score.
 
@@ -1081,3 +1083,4 @@ Before a public or commercial release, the project should review:
 - Bundled license files
 
 Licensing compliance should be treated as an ongoing maintenance task rather than a one-time development step.
+```
