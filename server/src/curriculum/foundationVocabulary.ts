@@ -1,5 +1,5 @@
 export interface CurriculumVocabularyItem {
-  writtenForm: string;
+  writtenForm: string | null;
   reading: string;
 }
 

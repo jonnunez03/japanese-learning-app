@@ -66,7 +66,7 @@ const result = await pool.query<CandidateRow>(
       candidate.senses
     FROM jmdict_candidates AS candidate
     JOIN preview_words AS p
-      ON candidate.written_form = p."writtenForm"
+      ON candidate.written_form IS NOT DISTINCT FROM p."writtenForm"
       AND candidate.reading = p.reading
     ORDER BY candidate.id
   `,
@@ -154,6 +154,6 @@ for (const row of result.rows) {
   syncedCount += 1;
 }
 
-console.log(`Synced ${syncedCount} preview words into words.`);
+console.log(`Synced ${syncedCount} Foundation vocabulary words into words.`);
 
 await pool.end();
