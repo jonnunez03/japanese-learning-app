@@ -75,6 +75,13 @@ const previewVocabulary = [
   { writtenForm: "小さい", reading: "ちいさい" },
 ];
 
+const curriculumOrder = new Map(
+  previewVocabulary.map((word, index) => [
+    `${word.writtenForm}:${word.reading}`,
+    index + 1,
+  ]),
+);
+
 const result = await pool.query<CandidateRow>(
   `
     WITH preview_words AS (
@@ -116,6 +123,14 @@ for (const row of result.rows) {
   const isCommon =
     row.priorities.includes("ichi1") || row.priorities.includes("news1");
 
+  const order = curriculumOrder.get(`${row.written_form}:${row.reading}`);
+
+  if (order === undefined) {
+    throw new Error(
+      `Curriculum order not found for ${row.written_form} / ${row.reading}`,
+    );
+  }
+
   await pool.query(
     `
       INSERT INTO words (
@@ -127,7 +142,9 @@ for (const row of result.rows) {
         is_common,
         jlpt_level,
         source,
-        source_id
+        source_id,
+        study_level,
+        curriculum_order
       )
       VALUES (
         $1,
@@ -138,7 +155,9 @@ for (const row of result.rows) {
         $6,
         NULL,
         'JMdict_e',
-        $7
+        $7,
+        'FOUNDATION',
+        $8
       )
       ON CONFLICT (source, source_id)
         WHERE source_id IS NOT NULL
@@ -148,7 +167,9 @@ for (const row of result.rows) {
         romaji = EXCLUDED.romaji,
         english = EXCLUDED.english,
         word_type = EXCLUDED.word_type,
-        is_common = EXCLUDED.is_common
+        is_common = EXCLUDED.is_common,
+        study_level = EXCLUDED.study_level,
+        curriculum_order = EXCLUDED.curriculum_order
     `,
     [
       row.written_form,
@@ -158,6 +179,7 @@ for (const row of result.rows) {
       wordType,
       isCommon,
       sourceId,
+      order,
     ],
   );
 
