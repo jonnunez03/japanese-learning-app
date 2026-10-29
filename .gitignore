@@ -24,3 +24,5 @@ Thumbs.db
 
 # Downloaded language datasets
 server/data/raw/
+__pycache__/
+*.py[cod]
